@@ -30,9 +30,19 @@ public:
     DisplayScreen();
     virtual ~DisplayScreen();
     void displayScanData(CObservation3DRangeScanPtr scan_data);
+    void displayScanData(CObservation3DRangeScanPtr scan_data, CPose3D curr_pose);
+    void displayBotPositions(vector<CPose3D> bot_path);
+    void displayBotPositions(CPose3D bot_pose);
+    void updateGlobalMap(CObservation3DRangeScanPtr scan_data, CPose3D curr_pose);
+    void initializeGlobalMap(CObservation3DRangeScanPtr scan_data);
 private:
     mrpt::gui::CDisplayWindow3D win3D;
-    mrpt::opengl::CPointCloudColouredPtr gl_points;
+    mrpt::opengl::CPointCloudColouredPtr gl_points;//for local map
+    mrpt::opengl::CPointCloudColouredPtr gl_points_map;//for global map
+    mrpt::opengl::CSetOfObjectsPtr gl_cur_cam_corner;
+    mrpt::opengl::CSetOfObjectsPtr gl_keyframes; //for camera_key_frame_path
+    CColouredPointsMap global_map;
+    
 };
 
 #endif	/* DISPLAYSCREEN_H */
